@@ -1,6 +1,7 @@
 install.packages("zoo")
 install.packages("tidyverse")
 install.packages("kableExtra")
+install.packages("forecasting")
 
 library(kableExtra)
 library(tidyverse)
@@ -18,6 +19,7 @@ summary(testData)
 
 aggData <- aggregate(testData, by = list(testData$Year),
                    FUN = mean, na.rm=FALSE)
+
 
 aggData_2011 <- filter(testData , Year == "2011")
 aggData_2012 <- filter(testData , Year == "2012")
@@ -55,5 +57,7 @@ LGI <- ggplot() + geom_line(aes(y = Total, x= Position),
   geom_line(aes(y= Total, x= Position),
             size= 0.8, colr = "blue",data = aggData_2021) 
   
-  
-  
+#count(count(testData[1:551,],c("Position","Year")), "Position","freq")
+#count(count(aggData_2011,c("Position","Year")), "freq")
+#count(aggData_2011[1:50,],vars= "Position",vars= "Year")
+count(aggData_2011[1:50,],vars= "Position")
