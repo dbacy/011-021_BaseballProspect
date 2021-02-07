@@ -61,3 +61,25 @@ LGI <- ggplot() + geom_line(aes(y = Total, x= Position),
 #count(count(aggData_2011,c("Position","Year")), "freq")
 #count(aggData_2011[1:50,],vars= "Position",vars= "Year")
 count(aggData_2011[1:50,],vars= "Position")
+
+#The Different levels in P
+levels(aggData_2011$Position)
+
+summary(aggData_2011)
+
+#Info from 10 - 16 in aggData_2011
+aggData_2011[10:16,]
+
+#Will add the data to a new var. for only OF prospects
+#DO NOT EXICUTE
+#OF_2011 <- aggData_2011[Position =="OF", ]
+
+#want the count for each position in 2011 
+nrow(subset(aggData_2011, Position == "OF" | Position == "2B"))
+nrow(subset(aggData_2011, Position == "2B"))
+nrow(subset(aggData_2011, Position == "3B"))
+nrow(subset(aggData_2011, Position == "1B"))
+nrow(subset(aggData_2011, Position == "LHP"))
+nrow(subset(aggData_2011, Position == "RHP"))
+nrow(subset(aggData_2011, Position == "SS"))
+aggData_2011
