@@ -83,3 +83,8 @@ nrow(subset(aggData_2011, Position == "LHP"))
 nrow(subset(aggData_2011, Position == "RHP"))
 nrow(subset(aggData_2011, Position == "SS"))
 aggData_2011
+
+
+#Need the count from above to go to the table to then be used to make the boxplot
+#Not exactly what i want
+boxplot(aggData_2011$`Prospect #` ~ aggData_2011$Position)
