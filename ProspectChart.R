@@ -33,7 +33,7 @@ aggData_2019 <- filter(testData , Year == "2019")
 aggData_2020 <- filter(testData , Year == "2020")
 aggData_2021 <- filter(testData , Year == "2021")
 
-LGI <- ggplot() + geom_line(aes(y = Total, x= Position),
+LGI2 <- ggplot() + geom_line(aes(y = Total, x= Position),
                             size= 0.8, color = "blue",
                             data = aggData_2011) +
   geom_line(aes(y= Total , x = Postition), 
@@ -75,14 +75,40 @@ aggData_2011[10:16,]
 #OF_2011 <- aggData_2011[Position =="OF", ]
 
 #want the count for each position in 2011 
-nrow(subset(aggData_2011, Position == "OF" | Position == "2B"))
-nrow(subset(aggData_2011, Position == "2B"))
-nrow(subset(aggData_2011, Position == "3B"))
-nrow(subset(aggData_2011, Position == "1B"))
-nrow(subset(aggData_2011, Position == "LHP"))
-nrow(subset(aggData_2011, Position == "RHP"))
-nrow(subset(aggData_2011, Position == "SS"))
+OF_2011 <- nrow(subset(aggData_2011, Position == "OF"))
+TwB_2011 <- nrow(subset(aggData_2011, Position == "2B"))
+ThB_2011<- nrow(subset(aggData_2011, Position == "3B"))
+FiB_2011 <- nrow(subset(aggData_2011, Position == "1B"))
+LHP_2011 <- nrow(subset(aggData_2011, Position == "LHP"))
+RHP_2011 <- nrow(subset(aggData_2011, Position == "RHP"))
+SS_2011 <- nrow(subset(aggData_2011, Position == "SS"))
+C_2011 <- nrow(subset(aggData_2011, Position == "C"))
 aggData_2011
+
+LGI <- ggplot() + geom_line(aes(y = OF_2011, x= Position),
+                             size= 0.8, color = "blue",
+                             data = aggData_2011) +
+  geom_line(aes(y= Total , x = Postition), 
+            size= 0.8, color = "red", data = aggData_2012) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "purple",data = aggData_2013) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "green",data = aggData_2014) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "orange",data = aggData_2015) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "teal",data = aggData_2016) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "black",data = aggData_2017) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "moroon",data = aggData_2018) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, color = "brown",data = aggData_2019) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, colr = "yellow",data = aggData_2020) +
+  geom_line(aes(y= Total, x= Position),
+            size= 0.8, colr = "blue",data = aggData_2021) 
+
 
 
 #Need the count from above to go to the table to then be used to make the boxplot
