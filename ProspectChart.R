@@ -1,116 +1,241 @@
 install.packages("zoo")
 install.packages("tidyverse")
 install.packages("kableExtra")
-install.packages("forecasting")
+install.packages("openxlsx")
+install.packages("reshape2")
 
 library(kableExtra)
 library(tidyverse)
 library(zoo)
+library(openxlsx)
+library(reshape2)
 
-testData <-read_xlsx("/Users/Small/Documents/Excel/R_Projects/Top50/BP21.xlsx")
+##################################################################################
 
-head(testData)
+testData <-read.xlsx("/Users/Small/Documents/Excel/R_Projects/Top50/BP21.xlsx")
 
-df<-head(testData)
-kable(df) %>%
-  kable_styling(bootstrap_options = "striped", font_size = 10, full_width = F)
-
-summary(testData)
-
-aggData <- aggregate(testData, by = list(testData$Year),
-                   FUN = mean, na.rm=FALSE)
+##################################################################################
 
 
-aggData_2011 <- filter(testData , Year == "2011")
-aggData_2012 <- filter(testData , Year == "2012")
-aggData_2013 <- filter(testData , Year == "2013")
-aggData_2014 <- filter(testData , Year == "2014")
-aggData_2015 <- filter(testData , Year == "2015")
-aggData_2016 <- filter(testData , Year == "2016")
-aggData_2017 <- filter(testData , Year == "2017")
-aggData_2018 <- filter(testData , Year == "2018")
-aggData_2019 <- filter(testData , Year == "2019")
-aggData_2020 <- filter(testData , Year == "2020")
-aggData_2021 <- filter(testData , Year == "2021")
-
-LGI2 <- ggplot() + geom_line(aes(y = Total, x= Position),
-                            size= 0.8, color = "blue",
-                            data = aggData_2011) +
-  geom_line(aes(y= Total , x = Postition), 
-            size= 0.8, color = "red", data = aggData_2012) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "purple",data = aggData_2013) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "green",data = aggData_2014) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "orange",data = aggData_2015) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "teal",data = aggData_2016) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "black",data = aggData_2017) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "moroon",data = aggData_2018) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "brown",data = aggData_2019) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, colr = "yellow",data = aggData_2020) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, colr = "blue",data = aggData_2021) 
+aggData_2011 <- filter(testData , Year == "2011") %>% 
   
-#count(count(testData[1:551,],c("Position","Year")), "Position","freq")
-#count(count(aggData_2011,c("Position","Year")), "freq")
-#count(aggData_2011[1:50,],vars= "Position",vars= "Year")
-count(aggData_2011[1:50,],vars= "Position")
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-#The Different levels in P
-levels(aggData_2011$Position)
+aggData_2012 <- filter(testData , Year == "2012") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-summary(aggData_2011)
+aggData_2013 <- filter(testData , Year == "2013") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-#Info from 10 - 16 in aggData_2011
-aggData_2011[10:16,]
+aggData_2014 <- filter(testData , Year == "2014") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-#Will add the data to a new var. for only OF prospects
-#DO NOT EXICUTE
-#OF_2011 <- aggData_2011[Position =="OF", ]
+aggData_2015 <- filter(testData , Year == "2015") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-#want the count for each position in 2011 
-OF_2011 <- nrow(subset(aggData_2011, Position == "OF"))
-TwB_2011 <- nrow(subset(aggData_2011, Position == "2B"))
-ThB_2011<- nrow(subset(aggData_2011, Position == "3B"))
-FiB_2011 <- nrow(subset(aggData_2011, Position == "1B"))
-LHP_2011 <- nrow(subset(aggData_2011, Position == "LHP"))
-RHP_2011 <- nrow(subset(aggData_2011, Position == "RHP"))
-SS_2011 <- nrow(subset(aggData_2011, Position == "SS"))
-C_2011 <- nrow(subset(aggData_2011, Position == "C"))
-aggData_2011
+aggData_2016 <- filter(testData , Year == "2016") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
 
-LGI <- ggplot() + geom_line(aes(y = OF_2011, x= Position),
-                             size= 0.8, color = "blue",
-                             data = aggData_2011) +
-  geom_line(aes(y= Total , x = Postition), 
-            size= 0.8, color = "red", data = aggData_2012) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "purple",data = aggData_2013) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "green",data = aggData_2014) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "orange",data = aggData_2015) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "teal",data = aggData_2016) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "black",data = aggData_2017) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "moroon",data = aggData_2018) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, color = "brown",data = aggData_2019) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, colr = "yellow",data = aggData_2020) +
-  geom_line(aes(y= Total, x= Position),
-            size= 0.8, colr = "blue",data = aggData_2021) 
+aggData_2017 <- filter(testData , Year == "2017") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+aggData_2018 <- filter(testData , Year == "2018") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+aggData_2019 <- filter(testData , Year == "2019") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+aggData_2020 <- filter(testData , Year == "2020") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+aggData_2021 <- filter(testData , Year == "2021") %>% 
+  
+  summarise(
+    C = sum(Position == "C"),
+    LPH = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+testData2 <- testData %>% 
+  group_by(Year) %>% 
+  summarise(
+    C = sum(Position == "C"),
+    LHP = sum(Position == "LHP"),
+    RHP = sum(Position == "RHP"),
+    SS = sum(Position == "SS"),
+    OF = sum(Position == "OF"),
+    FB = sum(Position == "1B"),
+    SB = sum(Position == "2B"),
+    TB = sum(Position == "3B")
+  )
+
+# testData2 <- testData %>% 
+#   group_by(Year) %>% 
+#   summarise(
+#     Position = sum(Position == "C"), 
+#     sum(Position == "LHP"),
+#     sum(Position == "RHP"),
+#     sum(Position == "SS"),
+#     sum(Position == "OF"),
+#     sum(Position == "1B"),
+#     sum(Position == "2B"),
+#     sum(Position == "3B")
+#   )
+
+####################################################################################
+
+catcher <- recordPlot(dotchart(testData2$C , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' Catcher Prospect')) 
+left_hand_pitcher <- recordPlot(dotchart(testData2$LHP , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' LHP Prospect'))
+right_hand_pitcher <- recordPlot(dotchart(testData2$RHP , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' RHP Prospect'))
+short_stop <- recordPlot(dotchart(testData2$SS , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' Short Stop Prospect'))
+outfield <- recordPlot(dotchart(testData2$OF , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' Outfield Prospect'))
+first_base <- recordPlot(dotchart(testData2$FB , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' 1B Prospect'))
+second_base <- recordPlot(dotchart(testData2$SB , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' 2B Prospect'))
+third_base <- recordPlot(dotchart(testData2$TB , labels = testData2$Year , color = 'blue' , pch = 16 ,
+         xlab = 'Count' , ylab = 'Year' , main = ' 3B Prospect'))
+
+testData2 %>% 
+  ggplot(aes(x = Year , y = C )) # does not plot the count 
 
 
+ggplot(data = testData2, aes(x=Year, y= C))  + geom_line(aes(colour=Year))
 
-#Need the count from above to go to the table to then be used to make the boxplot
-#Not exactly what i want
-boxplot(aggData_2011$`Prospect #` ~ aggData_2011$Position)
+
+boxplot(aggData_2011)
+
+############################################################################
+
+
+sa <- stack(as.data.frame(testData2))
+sa$x <- rep(seq_len(nrow(testData2)), ncol(testData2))
+qplot(x, values, data = sa, group = ind, colour = ind, geom = "line")
+
+#has year with all position in ind 
+
+sa <- stack(as.data.frame(testData))
+sa$x <- rep(seq_len(nrow(testData)), ncol(testData))
+qplot(x, values, data = sa, group = ind, colour = ind, geom = "line") 
+#has Prospect , position , and year in ind 
+
+sa <- stack(as.data.frame(testData3))
+sa$x <- rep(seq_len(nrow(testData3)), ncol(testData3))
+qplot(x, values, data = sa, group = ind, colour = ind, geom = "line")
+
+testData3 <- testData %>% 
+  select(Year, Position)  #has Year and Position 
+
+
+# 
+# a <- matrix(rnorm(200), 10, 10)
+# qplot(c(row(a)), c(a), group = c(col(a)), colour = c(col(a)), geom = "line")
